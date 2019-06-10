@@ -1,8 +1,10 @@
-# Since configuration is shared in umbrella projects, this file
-# should only configure the :web application itself
-# and only for organization purposes. All other config goes to
-# the umbrella root.
 use Mix.Config
+
+__ENV__.file()
+|> Path.dirname()
+|> Path.join("../../../config/dotenv.exs")
+|> Path.expand()
+|> Code.eval_file()
 
 # General application configuration
 config :web,
@@ -11,8 +13,9 @@ config :web,
 
 # Configures the endpoint
 config :web, Web.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "uLxq5PLWNR2gYVy/dGkjM17vxFzfNBSBrjSLoAS2j/B479OhBMlr33P6+Py0iArZ",
+  url: [host: "localhost", port: Dotenv.fetch_env!("PORT")],
+  http: [port: Dotenv.fetch_env!("PORT")],
+  secret_key_base: Dotenv.fetch_env!("SECRET_KEY_BASE"),
   render_errors: [view: Web.ErrorView, accepts: ~w(json)],
   pubsub: [name: Web.PubSub, adapter: Phoenix.PubSub.PG2]
 
