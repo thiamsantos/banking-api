@@ -13,7 +13,6 @@ __ENV__.file()
 config :core,
   ecto_repos: [Core.Repo]
 
-config :core, Core.Repo,
-  url: Dotenv.fetch_env!("DATABASE_URL")
+config :core, Core.Repo, url: Dotenv.fetch_env!("DATABASE_URL")
 
 import_config "#{Mix.env()}.exs"

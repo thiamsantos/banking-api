@@ -10,6 +10,10 @@ help: Makefile
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 	@echo
 
-## tests - Run tests inside the docker container
+## test - Run tests inside a docker container
 test:
 	docker-compose run -e MIX_ENV=test banking mix test
+
+## format - Run the formatter inside a docker container
+format:
+	docker-compose run banking mix format
