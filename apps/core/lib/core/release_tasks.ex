@@ -1,4 +1,7 @@
 defmodule Core.ReleaseTasks do
+  @moduledoc """
+  Release tasks to be used as hooks of a distillery release.
+  """
   @start_apps [
     :crypto,
     :ssl,
