@@ -10,7 +10,7 @@ env:
     - PGUSER=postgres
     - PGPASSWORD=postgres
     - PGHOST=localhost
-    - DATABASE_URL=postgres://$PGUSER:PGPASSWORD@$PGPASSWORD/banking
+    - DATABASE_URL=postgres://postgres:postgres@localhost/banking
     - SECRET_KEY_BASE=uLxq5PLWNR2gYVy/dGkjM17vxFzfNBSBrjSLoAS2j/B479OhBMlr33P6+Py0iArZ
     - MIX_ENV=test
 
