@@ -15,4 +15,5 @@ config :core, Core.Repo,
 config :web, Web.Endpoint,
   http: [:inet6, port: fetch_env!.("PORT")],
   secret_key_base: fetch_env!.("SECRET_KEY_BASE"),
-  url: [host: fetch_env!.("HOST"), port: 443]
+  url: [host: fetch_env!.("HOST"), port: 443, scheme: "https"],
+  force_ssl: true
