@@ -1,0 +1,39 @@
+language: elixir
+
+addons:
+  postgresql: "11"
+
+env:
+  global:
+    - CI=true
+    - PGDATABASE=banking
+    - PGUSER=postgres
+    - PGPASSWORD=postgres
+    - PGHOST=localhost
+    - DATABASE_URL=postgres://$PGUSER:PGPASSWORD@$PGPASSWORD/banking
+    - SECRET_KEY_BASE=uLxq5PLWNR2gYVy/dGkjM17vxFzfNBSBrjSLoAS2j/B479OhBMlr33P6+Py0iArZ
+    - MIX_ENV=test
+
+cache:
+  directories:
+    - "~/.hex"
+    - "~/.mix"
+    - deps
+
+elixir:
+  - '1.8.1'
+
+otp_release:
+  - '21.0'
+
+before_script:
+  - mix do ecto.create, ecto.migrate
+
+script:
+  - mix format --check-formatted
+  - mix credo --strict
+  - mix test
+  - mix coveralls.travis --pro
+
+services:
+  - postgresql
