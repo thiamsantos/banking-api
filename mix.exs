@@ -22,7 +22,8 @@ defmodule Banking.Umbrella.MixProject do
     [
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
-      {:distillery, "~> 2.0"}
+      {:distillery, "~> 2.0"},
+      {:timber, "~> 3.1"}
     ]
   end
 end

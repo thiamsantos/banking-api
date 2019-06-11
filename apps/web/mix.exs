@@ -43,7 +43,11 @@ defmodule Web.MixProject do
       {:banking, in_umbrella: true},
       {:backoffice, in_umbrella: true},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:timber, "~> 3.1"},
+      {:timber_exceptions, "~> 2.0"},
+      {:timber_phoenix, "~> 1.0"},
+      {:timber_plug, "~> 1.0"}
     ]
   end
 

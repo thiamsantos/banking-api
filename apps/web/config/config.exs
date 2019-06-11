@@ -17,7 +17,8 @@ config :web, Web.Endpoint,
   http: [port: System.get_env("PORT")],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: Web.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Web.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Web.PubSub, adapter: Phoenix.PubSub.PG2],
+  instrumenters: [Timber.Phoenix]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

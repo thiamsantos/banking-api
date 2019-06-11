@@ -7,6 +7,9 @@ defmodule Web.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  plug Timber.Plug.HTTPContext
+  plug Timber.Plug.Event
+
   plug Plug.RequestId
   plug Plug.Logger
 

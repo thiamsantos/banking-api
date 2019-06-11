@@ -6,6 +6,16 @@ defmodule Core.Application do
   use Application
 
   def start(_type, _args) do
+    :ok =
+      :telemetry.attach(
+        "timber-ecto-query-handler",
+        [:core, :repo, :query],
+        &Timber.Ecto.handle_event/4,
+        []
+      )
+
+    :ok = Logger.add_translator({Timber.Exceptions.Translator, :translate})
+
     children = [
       Core.Repo
     ]

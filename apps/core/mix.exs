@@ -38,7 +38,10 @@ defmodule Core.MixProject do
     [
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:jason, "~> 1.0"}
+      {:jason, "~> 1.0"},
+      {:timber, "~> 3.1"},
+      {:timber_ecto, "~> 2.0"},
+      {:timber_exceptions, "~> 2.0"}
     ]
   end
 

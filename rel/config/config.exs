@@ -17,3 +17,7 @@ config :web, Web.Endpoint,
   secret_key_base: fetch_env!.("SECRET_KEY_BASE"),
   url: [host: fetch_env!.("HOST"), port: 443, scheme: "https"],
   force_ssl: true
+
+config :timber,
+  api_key: fetch_env!.("TIMBER_API_KEY"),
+  source_id: fetch_env!.("TIMBER_SOURCE_ID")
