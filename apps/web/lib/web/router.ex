@@ -7,5 +7,7 @@ defmodule Web.Router do
 
   scope "/api", Web do
     pipe_through :api
+
+    get "/ping", PingController, :ping
   end
 end

@@ -17,7 +17,7 @@ services:
     build: .
     ports:
       - 4000:4000
-    command: mix do ecto.create --quiet, ecto.migrate, phx.server
+    command: mix do deps.get, ecto.create --quiet, ecto.migrate, phx.server
     volumes:
       - .:/app
       - deps:/app/deps
