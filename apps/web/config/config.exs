@@ -13,9 +13,9 @@ config :web,
 
 # Configures the endpoint
 config :web, Web.Endpoint,
-  url: [host: "localhost", port: Dotenv.fetch_env!("PORT")],
-  http: [port: Dotenv.fetch_env!("PORT")],
-  secret_key_base: Dotenv.fetch_env!("SECRET_KEY_BASE"),
+  url: [host: "localhost", port: System.get_env("PORT")],
+  http: [port: System.get_env("PORT")],
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: Web.ErrorView, accepts: ~w(json)],
   pubsub: [name: Web.PubSub, adapter: Phoenix.PubSub.PG2]
 
