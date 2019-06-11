@@ -33,7 +33,6 @@ script:
   - mix format --check-formatted
   - mix credo --strict
   - mix test
-  - mix coveralls.travis --pro
 
 services:
   - postgresql
