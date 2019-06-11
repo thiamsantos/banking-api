@@ -31,7 +31,7 @@ unless Code.ensure_compiled?(Dotenv) do
     end
 
     defp filenames(current_env) do
-      [".env", ".env.local", ".env.#{current_env}"]
+      [".env", ".env.local", ".env.#{current_env}", ".env.local.#{current_env}"]
     end
 
     defp current_env do

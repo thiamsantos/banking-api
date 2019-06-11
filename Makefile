@@ -17,3 +17,7 @@ test:
 ## format - Run the formatter inside a docker container
 format:
 	docker-compose run banking mix format
+
+## credo - Run the linter inside a docker container
+credo:
+	docker-compose run banking mix credo
