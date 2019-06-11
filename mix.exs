@@ -21,7 +21,8 @@ defmodule Banking.Umbrella.MixProject do
   defp deps do
     [
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.10", only: :test, runtime: false}
+      {:excoveralls, "~> 0.10", only: :test, runtime: false},
+      {:distillery, "~> 2.0"}
     ]
   end
 end
