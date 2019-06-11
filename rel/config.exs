@@ -12,6 +12,12 @@ environment :prod do
   set include_src: false
   set cookie: :"wE<T0_B&WF_x{`OFvo=~0LDtm<4^gB/6YL47y6H6.q)]N~pnP*Q4@qGw>r1b[vVj"
   set vm_args: "rel/vm.args"
+  set config_providers: [
+    {Mix.Releases.Config.Providers.Elixir, ["${RELEASE_ROOT_DIR}/etc/config.exs"]}
+  ]
+  set overlays: [
+    {:copy, "rel/config/config.exs", "etc/config.exs"}
+  ]
 end
 
 release :banking_api do
