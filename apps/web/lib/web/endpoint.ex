@@ -7,6 +7,7 @@ defmodule Web.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  plug Corsica, origins: "*"
   plug Timber.Plug.HTTPContext
   plug Timber.Plug.Event
 
