@@ -30,7 +30,8 @@ defmodule Banking.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:core, in_umbrella: true}
+      {:core, in_umbrella: true},
+      {:faker, "~> 0.12.0", only: :test}
     ]
   end
 end

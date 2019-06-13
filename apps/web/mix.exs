@@ -40,6 +40,7 @@ defmodule Web.MixProject do
       {:phoenix, "~> 1.4.2"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
+      {:core, in_umbrella: true},
       {:banking, in_umbrella: true},
       {:backoffice, in_umbrella: true},
       {:jason, "~> 1.0"},
@@ -48,7 +49,9 @@ defmodule Web.MixProject do
       {:timber_exceptions, "~> 2.0"},
       {:timber_phoenix, "~> 1.0"},
       {:timber_plug, "~> 1.0"},
-      {:corsica, "~> 1.1"}
+      {:corsica, "~> 1.1"},
+      {:faker, "~> 0.12.0", only: :test},
+      {:ecto, "~> 3.1"}
     ]
   end
 

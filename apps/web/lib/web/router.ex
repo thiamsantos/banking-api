@@ -8,6 +8,6 @@ defmodule Web.Router do
   scope "/api", Web do
     pipe_through :api
 
-    get "/ping", PingController, :ping
+    post "/accounts", AccountController, :create
   end
 end
