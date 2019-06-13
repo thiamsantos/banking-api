@@ -3,16 +3,5 @@ defmodule Banking do
   Documentation for Banking.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Banking.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
+  defdelegate create_account(input), to: Banking.Accounts, as: :create
 end

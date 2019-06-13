@@ -12,8 +12,8 @@ defmodule Core.Schemas.Account do
 
   @fields [:balance, :email, :password]
 
-  def changeset(user, params \\ %{}) do
-    user
+  def changeset(account, params \\ %{}) do
+    account
     |> cast(params, @fields)
     |> validate_required(@fields)
     |> check_constraint(:balance, name: :balance_must_be_positive, message: "must be positive")

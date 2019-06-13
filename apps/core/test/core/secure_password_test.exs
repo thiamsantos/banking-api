@@ -17,7 +17,7 @@ defmodule Core.SecurePasswordTest do
     end
 
     test "returns false for a invalid hash" do
-    hash = SecurePassword.digest("password")
+      hash = SecurePassword.digest("password")
 
       assert SecurePassword.valid?("other_password", hash) == false
     end
