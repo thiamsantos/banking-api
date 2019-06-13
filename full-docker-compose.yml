@@ -1,0 +1,27 @@
+version: "3"
+
+volumes:
+  deps:
+  banking_postgres:
+
+services:
+  database:
+    image: postgres:9.6-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - banking_postgres:/var/lib/postgresql/data
+
+  banking:
+    build: .
+    ports:
+      - 4000:4000
+    command: mix do deps.get, ecto.create --quiet, ecto.migrate, phx.server
+    volumes:
+      - .:/app
+      - deps:/app/deps
+    links:
+      - "database"

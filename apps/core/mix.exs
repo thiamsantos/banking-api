@@ -9,7 +9,7 @@ defmodule Core.MixProject do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.5",
+      elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -41,7 +41,10 @@ defmodule Core.MixProject do
       {:jason, "~> 1.0"},
       {:timber, "~> 3.1"},
       {:timber_ecto, "~> 2.0"},
-      {:timber_exceptions, "~> 2.0"}
+      {:timber_exceptions, "~> 2.0"},
+      {:faker, "~> 0.12.0", only: :test},
+      {:ex_machina, "~> 2.3", only: :test},
+      {:bcrypt_elixir, "~> 2.0"}
     ]
   end
 

@@ -22,6 +22,7 @@ defmodule Core.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Core.DataCase
+      import Core.Factory
     end
   end
 
@@ -49,5 +50,9 @@ defmodule Core.DataCase do
         String.replace(acc, "%{#{key}}", to_string(value))
       end)
     end)
+  end
+
+  def random_string(size) do
+    size |> :crypto.strong_rand_bytes() |> Base.url_encode64() |> binary_part(0, size)
   end
 end

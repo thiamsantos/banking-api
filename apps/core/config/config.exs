@@ -13,6 +13,10 @@ __ENV__.file()
 config :core,
   ecto_repos: [Core.Repo]
 
-config :core, Core.Repo, url: System.get_env("DATABASE_URL"), log: false
+config :core, Core.Repo,
+  url: System.get_env("DATABASE_URL"),
+  migration_primary_key: [name: :id, type: :binary_id]
+
+config :core, Core.SecurePassword, rounds: 12
 
 import_config "#{Mix.env()}.exs"
