@@ -7,7 +7,6 @@ fetch_env! = fn key ->
   end
 end
 
-
 config :core, Core.Repo,
   url: fetch_env!.("DATABASE_URL"),
   pool_size: "POOL_SIZE" |> fetch_env!.() |> String.to_integer()
@@ -21,3 +20,7 @@ config :web, Web.Endpoint,
 config :timber,
   api_key: fetch_env!.("TIMBER_API_KEY"),
   source_id: fetch_env!.("TIMBER_SOURCE_ID")
+
+config :banking, Banking.TokenIssuer,
+  ttl: {String.to_integer(fetch_env!.("BANKING_SESSION_TOKEN_TTL_IN_MINUTES")), :minutes},
+  secret_key: fetch_env!.("BANKING_SESSION_TOKEN_SECRET")

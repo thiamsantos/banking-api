@@ -1,4 +1,4 @@
-defmodule Web.Accounts.CreateParams do
+defmodule Web.SessionTokens.CreateParams do
   use Web.Params
   import Ecto.Changeset
 

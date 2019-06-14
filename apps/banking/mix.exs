@@ -31,7 +31,8 @@ defmodule Banking.MixProject do
   defp deps do
     [
       {:core, in_umbrella: true},
-      {:faker, "~> 0.12.0", only: :test}
+      {:faker, "~> 0.12.0", only: :test},
+      {:guardian, "~> 1.2"}
     ]
   end
 end
