@@ -1,8 +1,8 @@
 defmodule Web.FallbackControllerTest do
   use Web.ConnCase, async: true
 
-  alias Web.FallbackController
   alias Web.Accounts.CreateParams
+  alias Web.FallbackController
 
   describe "call/2" do
     test "changeset error", %{conn: conn} do

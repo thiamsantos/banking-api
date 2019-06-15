@@ -32,7 +32,8 @@ defmodule Banking.MixProject do
     [
       {:core, in_umbrella: true},
       {:faker, "~> 0.12.0", only: :test},
-      {:guardian, "~> 1.2"}
+      {:guardian, "~> 1.2"},
+      {:ecto, "~> 3.1"}
     ]
   end
 end

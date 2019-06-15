@@ -1,8 +1,8 @@
 defmodule Core.Schemas.TransactionTest do
   use Core.DataCase, async: true
 
-  alias Core.Schemas.Transaction
   alias Core.Repo
+  alias Core.Schemas.Transaction
 
   describe "changeset_transfer/2" do
     test "valid params" do
