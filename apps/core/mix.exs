@@ -44,7 +44,8 @@ defmodule Core.MixProject do
       {:timber_exceptions, "~> 2.0"},
       {:faker, "~> 0.12.0", only: :test},
       {:ex_machina, "~> 2.3", only: :test},
-      {:bcrypt_elixir, "~> 2.0"}
+      {:bcrypt_elixir, "~> 2.0"},
+      {:ecto_enum, "~> 1.2"}
     ]
   end
 

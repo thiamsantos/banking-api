@@ -16,7 +16,7 @@ defmodule Core.Schemas.Account do
     account
     |> cast(params, @fields)
     |> validate_required(@fields)
-    |> check_constraint(:balance, name: :balance_must_be_positive, message: "must be positive")
+    |> validate_number(:balance, greater_than: 0, message: "must be positive")
     |> validate_format(:email, ~r/@/)
     |> validate_length(:email, max: 255)
     |> unique_constraint(:email)
