@@ -34,7 +34,8 @@ defmodule Banking.MixProject do
       {:faker, "~> 0.12.0", only: :test},
       {:guardian, "~> 1.2"},
       {:ecto, "~> 3.1"},
-      {:swoosh, "~> 0.23.2"}
+      {:swoosh, "~> 0.23.2"},
+      {:money, "~> 1.4"}
     ]
   end
 end

@@ -6,7 +6,13 @@ defmodule Banking.Withdrawals.Email do
     new()
     |> from(origin_email())
     |> to(account.email)
-    |> text_body("Successfully withdrawal with value of R$ #{transaction.amount}")
+    |> text_body("Successfully withdrawal with value of #{format_money(transaction.amount)}")
+  end
+
+  defp format_money(amount) do
+    amount
+    |> Money.new(:BRL)
+    |> Money.to_string(separator: ".", delimeter: ",", symbol_space: true)
   end
 
   defp origin_email do
