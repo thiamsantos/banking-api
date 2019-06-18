@@ -15,8 +15,4 @@ defmodule Banking.TokenIssuer do
   def resource_from_claims(claims) do
     {:ok, Accounts.one_by_id(claims["sub"])}
   end
-
-  def resource_from_claims(_claims) do
-    {:error, :invalid_claims}
-  end
 end

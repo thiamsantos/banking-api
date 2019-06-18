@@ -33,7 +33,8 @@ defmodule Banking.MixProject do
       {:core, in_umbrella: true},
       {:faker, "~> 0.12.0", only: :test},
       {:guardian, "~> 1.2"},
-      {:ecto, "~> 3.1"}
+      {:ecto, "~> 3.1"},
+      {:swoosh, "~> 0.23.2"}
     ]
   end
 end

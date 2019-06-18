@@ -6,6 +6,12 @@ defmodule Banking.Accounts.Queries do
     from(account in Account, where: account.id == ^account_id)
   end
 
+  def by_id_select_account(account_id) do
+    account_id
+    |> by_id()
+    |> select([account], account)
+  end
+
   def by_id_with_enough_balance(account_id, amount) do
     account_id
     |> by_id()

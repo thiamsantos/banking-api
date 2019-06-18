@@ -24,3 +24,9 @@ config :timber,
 config :banking, Banking.TokenIssuer,
   ttl: {String.to_integer(fetch_env!.("BANKING_SESSION_TOKEN_TTL_IN_MINUTES")), :minutes},
   secret_key: fetch_env!.("BANKING_SESSION_TOKEN_SECRET")
+
+config :banking, Banking.Withdrawals.Email,
+  from: fetch_env!.("BANKING_WITHDRAWAL_FROM_EMAIL")
+
+config :sample, Core.Mailer,
+  api_key: fetch_env!.("SENDGRID_API_KEY")

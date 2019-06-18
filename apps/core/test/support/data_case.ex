@@ -22,6 +22,7 @@ defmodule Core.DataCase do
       import Core.DataCase
       import Core.Factory
       import Core.Generator
+      import Swoosh.TestAssertions
     end
   end
 

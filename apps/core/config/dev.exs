@@ -6,3 +6,5 @@ use Mix.Config
 
 # Configure your database
 config :core, Core.Repo, pool_size: 10
+
+config :core, Core.Mailer, adapter: Swoosh.Adapters.Local
