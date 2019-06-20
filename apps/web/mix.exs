@@ -51,7 +51,8 @@ defmodule Web.MixProject do
       {:timber_plug, "~> 1.0"},
       {:corsica, "~> 1.1"},
       {:faker, "~> 0.12.0", only: :test},
-      {:ecto, "~> 3.1"}
+      {:ecto, "~> 3.1"},
+      {:guardian, "~> 1.2"}
     ]
   end
 

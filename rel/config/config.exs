@@ -21,7 +21,7 @@ config :timber,
   api_key: fetch_env!.("TIMBER_API_KEY"),
   source_id: fetch_env!.("TIMBER_SOURCE_ID")
 
-config :banking, Banking.TokenIssuer,
+config :web, Web.BankingGuardian,
   ttl: {String.to_integer(fetch_env!.("BANKING_SESSION_TOKEN_TTL_IN_MINUTES")), :minutes},
   secret_key: fetch_env!.("BANKING_SESSION_TOKEN_SECRET")
 

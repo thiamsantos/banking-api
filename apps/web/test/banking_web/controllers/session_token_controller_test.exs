@@ -1,7 +1,7 @@
 defmodule Web.SessionTokenControllerTest do
   use Web.ConnCase, async: true
 
-  alias Banking.TokenIssuer
+  alias Web.BankingGuardian
 
   describe "create/2" do
     test "valid params", %{conn: conn} do
@@ -23,7 +23,7 @@ defmodule Web.SessionTokenControllerTest do
       assert %{"data" => %{"session_token" => session_token}} = response
 
       assert {:ok, %{"aud" => "banking", "sub" => sub, "typ" => "access"}} =
-               TokenIssuer.decode_and_verify(session_token)
+               BankingGuardian.decode_and_verify(session_token)
 
       assert sub == account.id
     end

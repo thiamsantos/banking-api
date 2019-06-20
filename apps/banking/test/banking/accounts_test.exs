@@ -65,7 +65,7 @@ defmodule Banking.AccountsTest do
   describe "one_by_id/1" do
     test "valid account id" do
       account = insert(:account)
-      persisted_account = Accounts.one_by_id(account.id)
+      {:ok, persisted_account} = Accounts.one_by_id(account.id)
 
       assert persisted_account.email == account.email
       assert persisted_account.balance == account.balance
@@ -75,7 +75,7 @@ defmodule Banking.AccountsTest do
     test "account not found" do
       fake_account_id = Ecto.UUID.generate()
 
-      assert Accounts.one_by_id(fake_account_id) == nil
+      assert Accounts.one_by_id(fake_account_id) == {:error, :not_found}
     end
   end
 

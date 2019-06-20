@@ -1,5 +1,5 @@
-defmodule Banking.TokenIssuer do
-  use Guardian, otp_app: :banking
+defmodule Web.BankingGuardian do
+  use Guardian, otp_app: :web
 
   alias Banking.Accounts
   alias Core.Schemas.Account
@@ -13,6 +13,6 @@ defmodule Banking.TokenIssuer do
   end
 
   def resource_from_claims(claims) do
-    {:ok, Accounts.one_by_id(claims["sub"])}
+    Accounts.one_by_id(claims["sub"])
   end
 end
