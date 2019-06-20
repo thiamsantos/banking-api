@@ -25,4 +25,10 @@ defmodule Web.Router do
       post "/", WithdrawalController, :create
     end
   end
+
+  scope "/backoffice", Web do
+    pipe_through :api
+
+    post "/operators", OperatorController, :create
+  end
 end

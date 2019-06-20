@@ -54,7 +54,7 @@ defmodule Web.MixProject do
       {:ecto, "~> 3.1"},
       {:guardian, "~> 1.2"},
       {:timex, "~> 3.5", only: :test},
-      {:swoosh, "~> 0.23.2", only: :test}
+      {:swoosh, "~> 0.23.2"}
     ]
   end
 
