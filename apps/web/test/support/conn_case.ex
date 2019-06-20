@@ -21,9 +21,15 @@ defmodule Web.ConnCase do
       use Phoenix.ConnTest
       alias Web.Router.Helpers, as: Routes
       import Core.Factory
+      import Swoosh.TestAssertions
 
       # The default endpoint for testing
       @endpoint Web.Endpoint
+
+      def authenticate_account(conn, account) do
+        {:ok, token, _claims} = Web.BankingGuardian.encode_and_sign(account)
+        Plug.Conn.put_req_header(conn, "authorization", "Bearer #{token}")
+      end
     end
   end
 

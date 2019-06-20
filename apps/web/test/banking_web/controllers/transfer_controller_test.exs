@@ -4,11 +4,6 @@ defmodule Web.TransferControllerTest do
   alias Core.Repo
   alias Core.Schemas.{Account, Transaction}
 
-  def authenticate(conn, account) do
-    {:ok, token, _claims} = Web.BankingGuardian.encode_and_sign(account)
-    put_req_header(conn, "authorization", "Bearer #{token}")
-  end
-
   describe "create/2" do
     test "require authentication", %{conn: conn} do
       response =
@@ -34,7 +29,7 @@ defmodule Web.TransferControllerTest do
 
       response =
         conn
-        |> authenticate(origin_account)
+        |> authenticate_account(origin_account)
         |> post("/api/transfers", params)
         |> json_response(200)
 
@@ -67,7 +62,7 @@ defmodule Web.TransferControllerTest do
 
       response =
         conn
-        |> authenticate(origin_account)
+        |> authenticate_account(origin_account)
         |> post("/api/transfers", params)
         |> json_response(422)
 
@@ -92,7 +87,7 @@ defmodule Web.TransferControllerTest do
 
       response =
         conn
-        |> authenticate(origin_account)
+        |> authenticate_account(origin_account)
         |> post("/api/transfers", params)
         |> json_response(422)
 
@@ -112,7 +107,7 @@ defmodule Web.TransferControllerTest do
 
       response =
         conn
-        |> authenticate(origin_account)
+        |> authenticate_account(origin_account)
         |> post("/api/transfers", params)
         |> json_response(422)
 

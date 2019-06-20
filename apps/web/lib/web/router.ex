@@ -19,5 +19,10 @@ defmodule Web.Router do
       pipe_through :protected_api
       post "/", TransferController, :create
     end
+
+    scope "/withdrawals" do
+      pipe_through :protected_api
+      post "/", WithdrawalController, :create
+    end
   end
 end
