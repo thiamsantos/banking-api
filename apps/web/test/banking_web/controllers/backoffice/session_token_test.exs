@@ -1,7 +1,7 @@
-defmodule Web.SessionTokenControllerTest do
+defmodule Web.Backoffice.SessionTokenControllerTest do
   use Web.ConnCase, async: true
 
-  alias Web.BankingGuardian
+  alias Web.BackofficeGuardian
 
   describe "create/2" do
     test "valid params", %{conn: conn} do
@@ -13,25 +13,25 @@ defmodule Web.SessionTokenControllerTest do
         password: password
       }
 
-      account = build(:account, email: email) |> with_password(password) |> insert()
+      operator = build(:operator, email: email) |> with_password(password) |> insert()
 
       response =
         conn
-        |> post("/api/session_tokens", params)
+        |> post("/backoffice/session_tokens", params)
         |> json_response(200)
 
       assert %{"data" => %{"session_token" => session_token}} = response
 
-      assert {:ok, %{"aud" => "banking", "sub" => sub, "typ" => "access"}} =
-               BankingGuardian.decode_and_verify(session_token)
+      assert {:ok, %{"aud" => "backoffice", "sub" => sub, "typ" => "access"}} =
+               BackofficeGuardian.decode_and_verify(session_token)
 
-      assert sub == account.id
+      assert sub == operator.id
     end
 
     test "required params", %{conn: conn} do
       response =
         conn
-        |> post("/api/session_tokens", %{})
+        |> post("/backoffice/session_tokens", %{})
         |> json_response(422)
 
       assert response == %{
@@ -53,7 +53,7 @@ defmodule Web.SessionTokenControllerTest do
 
       response =
         conn
-        |> post("/api/session_tokens", params)
+        |> post("/backoffice/session_tokens", params)
         |> json_response(422)
 
       assert response == %{"errors" => %{"email" => ["Invalid email or password"]}}
@@ -68,11 +68,11 @@ defmodule Web.SessionTokenControllerTest do
         password: password
       }
 
-      build(:account, email: email) |> with_password("different_password") |> insert()
+      build(:operator, email: email) |> with_password("different_password") |> insert()
 
       response =
         conn
-        |> post("/api/session_tokens", params)
+        |> post("/backoffice/session_tokens", params)
         |> json_response(422)
 
       assert response == %{"errors" => %{"email" => ["Invalid email or password"]}}

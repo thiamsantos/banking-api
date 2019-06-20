@@ -50,4 +50,20 @@ defmodule Backoffice.OperatorsTest do
       assert errors_on(changeset) == %{password: ["should be at least 12 character(s)"]}
     end
   end
+
+  describe "one_by_id/1" do
+    test "valid operator id" do
+      operator = insert(:operator)
+      {:ok, persisted_operator} = Operators.one_by_id(operator.id)
+
+      assert persisted_operator.email == operator.email
+      assert SecurePassword.valid?(operator.password, persisted_operator.encrypted_password)
+    end
+
+    test "operator not found" do
+      fake_operator_id = Ecto.UUID.generate()
+
+      assert Operators.one_by_id(fake_operator_id) == {:error, :not_found}
+    end
+  end
 end

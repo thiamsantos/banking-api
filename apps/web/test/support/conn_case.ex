@@ -43,4 +43,9 @@ defmodule Web.ConnCase do
     {:ok, token, _claims} = Web.BankingGuardian.encode_and_sign(account)
     Plug.Conn.put_req_header(conn, "authorization", "Bearer #{token}")
   end
+
+  def authenticate_operator(conn, operator) do
+    {:ok, token, _claims} = Web.BackofficeGuardian.encode_and_sign(operator)
+    Plug.Conn.put_req_header(conn, "authorization", "Bearer #{token}")
+  end
 end

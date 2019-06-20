@@ -1,4 +1,4 @@
-defmodule Web.OperatorController do
+defmodule Web.Backoffice.OperatorController do
   use Web, :controller
 
   alias Web.Operators.CreateParams

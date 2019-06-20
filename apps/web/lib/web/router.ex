@@ -9,6 +9,10 @@ defmodule Web.Router do
     plug Web.BankingAuthPlug
   end
 
+  pipeline :protected_backoffice do
+    plug Web.BackofficeAuthPlug
+  end
+
   scope "/api", Web do
     pipe_through :api
 
@@ -26,9 +30,10 @@ defmodule Web.Router do
     end
   end
 
-  scope "/backoffice", Web do
+  scope "/backoffice", Web.Backoffice do
     pipe_through :api
 
     post "/operators", OperatorController, :create
+    post "/session_tokens", SessionTokenController, :create
   end
 end

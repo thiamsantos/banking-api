@@ -25,6 +25,11 @@ config :web, Web.BankingGuardian,
   ttl: {String.to_integer(System.get_env("BANKING_SESSION_TOKEN_TTL_IN_MINUTES")), :minutes},
   secret_key: System.get_env("BANKING_SESSION_TOKEN_SECRET")
 
+config :web, Web.BackofficeGuardian,
+  issuer: "backoffice",
+  ttl: {String.to_integer(System.get_env("BACKOFFICE_SESSION_TOKEN_TTL_IN_MINUTES")), :minutes},
+  secret_key: System.get_env("BACKOFFICE_SESSION_TOKEN_SECRET")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

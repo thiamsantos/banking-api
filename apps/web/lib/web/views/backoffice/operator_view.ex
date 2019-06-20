@@ -1,4 +1,4 @@
-defmodule Web.OperatorView do
+defmodule Web.Backoffice.OperatorView do
   use Web, :view
 
   def render("show.json", %{operator: operator}) do

@@ -1,4 +1,4 @@
-defmodule Web.OperatorControllerTest do
+defmodule Web.Backoffice.OperatorControllerTest do
   use Web.ConnCase, async: true
 
   alias Core.{Repo, SecurePassword}
