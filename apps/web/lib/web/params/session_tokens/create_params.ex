@@ -14,5 +14,9 @@ defmodule Web.SessionTokens.CreateParams do
     |> cast(params, @fields)
     |> validate_required(@fields)
     |> apply_action(:insert)
+    |> handle_parse()
   end
+
+  defp handle_parse({:ok, struct}), do: {:ok, Map.from_struct(struct)}
+  defp handle_parse({:error, reason}), do: {:error, reason}
 end

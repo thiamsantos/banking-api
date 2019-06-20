@@ -1,13 +1,13 @@
-defmodule Web.Accounts.CreateParams do
+defmodule Web.Transfers.CreateParams do
   use Web.Params
   import Ecto.Changeset
 
   embedded_schema do
-    field :email, :string
-    field :password, :string
+    field :to_account_id, :string
+    field :amount, :integer
   end
 
-  @fields [:email, :password]
+  @fields [:to_account_id, :amount]
 
   def parse(params) do
     %__MODULE__{}

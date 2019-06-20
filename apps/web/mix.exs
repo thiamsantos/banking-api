@@ -52,7 +52,8 @@ defmodule Web.MixProject do
       {:corsica, "~> 1.1"},
       {:faker, "~> 0.12.0", only: :test},
       {:ecto, "~> 3.1"},
-      {:guardian, "~> 1.2"}
+      {:guardian, "~> 1.2"},
+      {:timex, "~> 3.5", only: :test}
     ]
   end
 
