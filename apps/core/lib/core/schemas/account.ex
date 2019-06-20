@@ -8,6 +8,8 @@ defmodule Core.Schemas.Account do
     field :email, :string
     field :password, :string, virtual: true
     field :encrypted_password, :string
+
+    timestamps()
   end
 
   @fields [:balance, :email, :password]

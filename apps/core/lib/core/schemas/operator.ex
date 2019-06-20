@@ -7,6 +7,8 @@ defmodule Core.Schemas.Operator do
     field :email, :string
     field :password, :string, virtual: true
     field :encrypted_password, :string
+
+    timestamps()
   end
 
   @fields [:email, :password]

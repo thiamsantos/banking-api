@@ -9,6 +9,8 @@ defmodule Core.Schemas.Transaction do
     field :amount, :integer
     belongs_to :from_account, Account
     belongs_to :to_account, Account
+
+    timestamps()
   end
 
   @transfer_fields [:amount, :from_account_id, :to_account_id]
