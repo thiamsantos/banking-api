@@ -3,16 +3,5 @@ defmodule Backoffice do
   Documentation for Backoffice.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Backoffice.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
+  defdelegate create_operator(params), to: Backoffice.Operators, as: :create
 end
