@@ -1,7 +1,6 @@
 defmodule Web.WithdrawalControllerTest do
   use Web.ConnCase, async: true
 
-  alias Banking.Withdrawals
   alias Core.Repo
   alias Core.Schemas.{Account, Transaction}
 
@@ -48,7 +47,7 @@ defmodule Web.WithdrawalControllerTest do
       assert persisted_transaction.to_account_id == nil
 
       assert persisted_origin_account.balance == 100
-      assert_email_sent Withdrawals.Email.withdrawal_email(account, persisted_transaction)
+      assert_email_sent Banking.build_withdrawal_email(account, persisted_transaction)
     end
 
     test "insufficient balance", %{conn: conn} do

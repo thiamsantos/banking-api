@@ -1,7 +1,6 @@
 defmodule Web.BackofficeGuardian do
   use Guardian, otp_app: :web
 
-  alias Backoffice.Operators
   alias Core.Schemas.Operator
 
   def subject_for_token(%Operator{} = operator, _claims) do
@@ -13,6 +12,6 @@ defmodule Web.BackofficeGuardian do
   end
 
   def resource_from_claims(claims) do
-    Operators.one_by_id(claims["sub"])
+    Backoffice.one_operator_by_id(claims["sub"])
   end
 end
