@@ -26,8 +26,7 @@ unless Code.ensure_compiled?(Dotenv) do
     def fetch_integer_env!(key) do
       key
       |> fetch_env!()
-      |> Integer.parse()
-      |> elem(0)
+      |> String.to_integer()
     end
 
     defp filenames(current_env) do

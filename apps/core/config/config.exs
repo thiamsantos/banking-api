@@ -14,7 +14,7 @@ config :core,
   ecto_repos: [Core.Repo]
 
 config :core, Core.Repo,
-  url: System.get_env("DATABASE_URL"),
+  url: Dotenv.fetch_env!("DATABASE_URL"),
   migration_primary_key: [name: :id, type: :binary_id]
 
 config :core, Core.SecurePassword, rounds: 12

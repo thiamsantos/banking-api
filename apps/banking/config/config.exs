@@ -6,4 +6,4 @@ __ENV__.file()
 |> Path.expand()
 |> Code.eval_file()
 
-config :banking, Banking.Withdrawals.Email, from: System.get_env("BANKING_WITHDRAWAL_FROM_EMAIL")
+config :banking, Banking.Withdrawals.Email, from: Dotenv.fetch_env!("BANKING_WITHDRAWAL_FROM_EMAIL")

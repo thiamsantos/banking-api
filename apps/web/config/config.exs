@@ -13,22 +13,22 @@ config :web,
 
 # Configures the endpoint
 config :web, Web.Endpoint,
-  url: [host: "localhost", port: System.get_env("PORT")],
-  http: [port: System.get_env("PORT")],
-  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  url: [host: "localhost", port: Dotenv.fetch_env!("PORT")],
+  http: [port: Dotenv.fetch_env!("PORT")],
+  secret_key_base: Dotenv.fetch_env!("SECRET_KEY_BASE"),
   render_errors: [view: Web.ErrorView, accepts: ~w(json)],
   pubsub: [name: Web.PubSub, adapter: Phoenix.PubSub.PG2],
   instrumenters: [Timber.Phoenix]
 
 config :web, Web.BankingGuardian,
   issuer: "banking",
-  ttl: {String.to_integer(System.get_env("BANKING_SESSION_TOKEN_TTL_IN_MINUTES")), :minutes},
-  secret_key: System.get_env("BANKING_SESSION_TOKEN_SECRET")
+  ttl: {Dotenv.fetch_integer_env!("BANKING_SESSION_TOKEN_TTL_IN_MINUTES"), :minutes},
+  secret_key: Dotenv.fetch_env!("BANKING_SESSION_TOKEN_SECRET")
 
 config :web, Web.BackofficeGuardian,
   issuer: "backoffice",
-  ttl: {String.to_integer(System.get_env("BACKOFFICE_SESSION_TOKEN_TTL_IN_MINUTES")), :minutes},
-  secret_key: System.get_env("BACKOFFICE_SESSION_TOKEN_SECRET")
+  ttl: {Dotenv.fetch_integer_env!("BACKOFFICE_SESSION_TOKEN_TTL_IN_MINUTES"), :minutes},
+  secret_key: Dotenv.fetch_env!("BACKOFFICE_SESSION_TOKEN_SECRET")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
