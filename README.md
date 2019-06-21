@@ -162,6 +162,8 @@ A working example can be found at `.travis.yml`.
 
 ## Built With
 
+* [Elixir](https://elixir-lang.org/) - Elixir programming language
+* [PostgreSQL](https://www.postgresql.org/) - Relational database
 * [Phoenix](https://phoenixframework.org/) - Web framework
 * [Ecto](https://github.com/elixir-ecto/ecto) - Database wrapper and data-mapper
 * [Guardian](https://github.com/ueberauth/guardian) - Token based authentication library
