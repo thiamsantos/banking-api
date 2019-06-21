@@ -23,7 +23,7 @@ Code: 201 (created).
 | Value | Type | Description |
 |:------|:-----|:------------|
 | email   | string | The email of created account |
-| id      | string | UUID of the account |
+| id      | string | Unique identifier of the account |
 | balance | integer | Current balance of the account in cents. Ex: R$ 1000,00 = 100000.
 
 ### Error response
@@ -232,7 +232,7 @@ Code: 406
 
 ## POST /api/transfers
 
-Create a transfer.
+Create a transfer. Transfer some amount of money to another account.
 
 ### Request headers
 
@@ -240,23 +240,122 @@ Create a transfer.
 |:----------|:-------|:------------|
 | Content-Type | application/json | As for now the API only accepts json body |
 | Accepts | application/json | As for now the API only responds to json |
+| Authorization | Bearer #{JWT_TOKEN} | Pass the JWT token created for your account |
 
 ### Request parameters
 
+| Parameter | Type   | Description |
+|:----------|:-------|:------------|
+| amount | integer | Amount of money in cents to be transfered. Ex: RS 10,00 = 1000.
+| to_account_id | string | ID of the account to received the transfer.
+
 ### Success response
 
+Code: 201 (created).
+
+| Value | Type | Description |
+|:------|:-----|:------------|
+| amount | integer | Amount of money in cents transfered |
+| id | string | Unique identifier of the transfer transaction |
+| to_account_id | string | ID of the account that received the transfer |
+| from_account_id | string | ID of the acccount that transfered the money |
+
 ### Error response
+
+**Unauthorized**
+
+Code: 401.
+Body:
+```json
+{
+  "errors": [
+    "Invalid token"
+  ]
+}
+```
+
+**Required params**
+
+Code: 422.
+Body:
+
+```json
+{
+  "errors": {
+    "amount": [
+      "can't be blank"
+    ],
+    "to_account_id": [
+      "can't be blank"
+    ]
+  }
+}
+```
+
+**Insufficient balance**
+
+Code: 422.
+Body:
+```json
+{
+    "errors": {
+        "balance": [
+            "Insufficient balance"
+        ]
+    }
+}
+```
+
+**Invalid account destination**
+
+Code: 422.
+Body:
+```json
+{
+  "errors": {
+    "to_account_id": [
+      "is invalid"
+    ]
+  }
+}
+```
+
+**Destination account do not exists**
+
+Code: 422.
+Body:
+```json
+{
+    "errors": {
+        "to_account_id": [
+            "does not exist"
+        ]
+    }
+}
+```
 
 ### Example
 
 **Request**
 
 ```json
+{
+	"amount": 100,
+	"to_account_id": "9bb7fa54-7c6c-4acf-91ae-86e165cad2a8"
+}
 ```
 
 **Response**
 
 ```json
+{
+  "data": {
+    "amount": 100,
+    "from_account_id": "7cfd626a-34b0-4214-a6e4-08c6bcb172ac",
+    "id": "202c61a6-8b82-4278-8854-cbaae2c516d0",
+    "to_account_id": "9bb7fa54-7c6c-4acf-91ae-86e165cad2a8"
+  }
+}
 ```
 
 ## POST /api/withdrawals
