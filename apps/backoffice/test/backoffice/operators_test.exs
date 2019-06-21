@@ -66,4 +66,35 @@ defmodule Backoffice.OperatorsTest do
       assert Operators.one_by_id(fake_operator_id) == {:error, :not_found}
     end
   end
+
+  describe "validate_credentials/1" do
+    test "valid credentials" do
+      operator = build(:operator) |> with_password("secure_password") |> insert()
+
+      params = %{
+        email: operator.email,
+        password: "secure_password"
+      }
+
+      assert {:ok, %Operator{} = validated_operator} = Operators.validate_credentials(params)
+
+      assert validated_operator.id == operator.id
+    end
+
+    test "email not found" do
+      params = %{
+        email: Faker.Internet.email(),
+        password: "secure_password"
+      }
+
+      assert Operators.validate_credentials(params) == {:error, :invalid_email_or_password}
+    end
+
+    test "invalid password" do
+      operator = build(:operator) |> with_password("secure_password") |> insert()
+      params = %{email: operator.email, password: "another_password"}
+
+      assert Operators.validate_credentials(params) == {:error, :invalid_email_or_password}
+    end
+  end
 end

@@ -1,0 +1,10 @@
+{
+  "skip_files": [
+    "test",
+    "lib/core/schema.ex",
+    "lib/core/repo.ex",
+    "lib/core/release_tasks.ex",
+    "lib/core/mailer.ex",
+    "lib/core.ex"
+  ]
+}

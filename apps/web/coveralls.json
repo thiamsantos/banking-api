@@ -1,0 +1,9 @@
+{
+  "skip_files": [
+    "test",
+    "lib/web/params.ex",
+    "lib/web/endpoint.ex",
+    "lib/web/application.ex",
+    "lib/web.ex"
+  ]
+}

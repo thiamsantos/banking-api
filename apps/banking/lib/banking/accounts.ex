@@ -22,13 +22,6 @@ defmodule Banking.Accounts do
     end
   end
 
-  def one_by_email(email) do
-    case Repo.get_by(Account, email: email) do
-      nil -> {:error, :not_found}
-      %Account{} = account -> {:ok, account}
-    end
-  end
-
   def has_enough_balance?(account_id, amount) do
     account_id
     |> Queries.by_id_with_enough_balance(amount)
@@ -41,7 +34,14 @@ defmodule Banking.Accounts do
     |> validate_password(password)
   end
 
-  defp validate_password({:error, _reason}, _), do: {:error, :invalid_email_or_password}
+  defp one_by_email(email) do
+    case Repo.get_by(Account, email: email) do
+      nil -> {:error, :invalid_email_or_password}
+      %Account{} = account -> {:ok, account}
+    end
+  end
+
+  defp validate_password({:error, reason}, _), do: {:error, reason}
 
   defp validate_password({:ok, %Account{} = account}, password) do
     if SecurePassword.valid?(password, account.encrypted_password) do

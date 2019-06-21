@@ -28,12 +28,12 @@ defmodule Backoffice.Operators do
 
   defp one_by_email(email) do
     case Repo.get_by(Operator, email: email) do
-      nil -> {:error, :not_found}
+      nil -> {:error, :invalid_email_or_password}
       %Operator{} = operator -> {:ok, operator}
     end
   end
 
-  defp validate_password({:error, _reason}, _), do: {:error, :invalid_email_or_password}
+  defp validate_password({:error, reason}, _), do: {:error, reason}
 
   defp validate_password({:ok, %Operator{} = operator}, password) do
     if SecurePassword.valid?(password, operator.encrypted_password) do

@@ -79,20 +79,56 @@ defmodule Banking.AccountsTest do
     end
   end
 
-  describe "one_by_email/1" do
-    test "valid account email" do
-      account = insert(:account)
-      {:ok, persisted_account} = Accounts.one_by_email(account.email)
-
-      assert persisted_account.email == account.email
-      assert persisted_account.balance == account.balance
-      assert SecurePassword.valid?(account.password, persisted_account.encrypted_password)
+  describe "has_enough_balance?/2" do
+    test "account no found" do
+      fake_account_id = Ecto.UUID.generate()
+      assert Accounts.has_enough_balance?(fake_account_id, 1000) == false
     end
 
-    test "account not found" do
-      fake_email = Faker.Internet.email()
+    test "without enough balance" do
+      account = insert(:account, balance: 100)
+      assert Accounts.has_enough_balance?(account.id, 1000) == false
+    end
 
-      assert Accounts.one_by_email(fake_email) == {:error, :not_found}
+    test "with exact balance" do
+      account = insert(:account, balance: 1000)
+      assert Accounts.has_enough_balance?(account.id, 1000) == true
+    end
+
+    test "with enough balance" do
+      account = insert(:account, balance: 2000)
+      assert Accounts.has_enough_balance?(account.id, 1000) == true
+    end
+  end
+
+  describe "validate_credentials/2" do
+    test "valid credentials" do
+      account = build(:account) |> with_password("secure_password") |> insert()
+
+      params = %{
+        email: account.email,
+        password: "secure_password"
+      }
+
+      assert {:ok, %Account{} = validated_operator} = Accounts.validate_credentials(params)
+
+      assert validated_operator.id == account.id
+    end
+
+    test "email not found" do
+      params = %{
+        email: Faker.Internet.email(),
+        password: "secure_password"
+      }
+
+      assert Accounts.validate_credentials(params) == {:error, :invalid_email_or_password}
+    end
+
+    test "invalid password" do
+      account = build(:account) |> with_password("secure_password") |> insert()
+      params = %{email: account.email, password: "another_password"}
+
+      assert Accounts.validate_credentials(params) == {:error, :invalid_email_or_password}
     end
   end
 end

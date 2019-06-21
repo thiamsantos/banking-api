@@ -3,7 +3,7 @@ defmodule Web.BankingAuthPlugTest do
 
   alias Core.Repo
   alias Guardian.Token.Jwt
-  alias Web.{BankingAuthPlug, BankingGuardian}
+  alias Web.{BankingAuthPlug, BankingGuardian, BackofficeGuardian}
 
   describe "call/2" do
     test "invalid jwt token", %{conn: conn} do
@@ -13,6 +13,19 @@ defmodule Web.BankingAuthPlugTest do
       response =
         conn
         |> put_req_header("authorization", "Bearer #{invalid_token}")
+        |> BankingAuthPlug.call([])
+        |> json_response(401)
+
+      assert response == %{"errors" => ["Invalid token"]}
+    end
+
+    test "backoffice's jwt token", %{conn: conn} do
+      operator = insert(:operator)
+      {:ok, token, _claims} = BackofficeGuardian.encode_and_sign(operator)
+
+      response =
+        conn
+        |> put_req_header("authorization", "Bearer #{token}")
         |> BankingAuthPlug.call([])
         |> json_response(401)
 
