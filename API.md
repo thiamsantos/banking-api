@@ -298,11 +298,11 @@ Code: 422.
 Body:
 ```json
 {
-    "errors": {
-        "balance": [
-            "Insufficient balance"
-        ]
-    }
+  "errors": {
+    "balance": [
+      "Insufficient balance"
+    ]
+  }
 }
 ```
 
@@ -326,11 +326,11 @@ Code: 422.
 Body:
 ```json
 {
-    "errors": {
-        "to_account_id": [
-            "does not exist"
-        ]
-    }
+  "errors": {
+    "to_account_id": [
+      "does not exist"
+    ]
+  }
 }
 ```
 
@@ -340,8 +340,8 @@ Body:
 
 ```json
 {
-	"amount": 100,
-	"to_account_id": "9bb7fa54-7c6c-4acf-91ae-86e165cad2a8"
+  "amount": 100,
+  "to_account_id": "9bb7fa54-7c6c-4acf-91ae-86e165cad2a8"
 }
 ```
 
@@ -360,26 +360,95 @@ Body:
 
 ## POST /api/withdrawals
 
-Create a withdrawal.
+Create a withdrawal. An email will be sent to the account's email address.
+
+### Request headers
+
+| Header | Value   | Description |
+|:----------|:-------|:------------|
+| Content-Type | application/json | As for now the API only accepts json body |
+| Accepts | application/json | As for now the API only responds to json |
+| Authorization | Bearer #{JWT_TOKEN} | Pass the JWT token created for your account |
 
 ### Request parameters
 
+| Parameter | Type   | Description |
+|:----------|:-------|:------------|
+| amount | integer | Amount of money in cents to withdraw. Ex: RS 10,00 = 1000.
+
 ### Success response
 
+Code: 201 (created).
+
+| Value | Type | Description |
+|:------|:-----|:------------|
+| amount | integer | Withdrawal amount in cents |
+| id | string | Unique identifier of the withdrawal transaction |
+| from_account_id | string | ID of the acccount that performed the withdrawal |
+
 ### Error response
+
+**Required Params**
+
+Code: 422.
+Body:
+```json
+{
+  "errors": {
+    "amount": [
+      "can't be blank"
+    ]
+  }
+}
+```
+
+**Unauthorized**
+
+Code: 401.
+Body:
+```json
+{
+  "errors": [
+    "Invalid token"
+  ]
+}
+```
+
+**Insufficient balance**
+
+Code: 422.
+Body:
+```json
+{
+  "errors": {
+    "balance": [
+      "Insufficient balance"
+    ]
+  }
+}
+```
 
 ### Example
 
 **Request**
 
 ```json
+{
+  "amount": "100"
+}
 
 ```
 
 **Response**
 
 ```json
-
+{
+  "data": {
+    "amount": 100,
+    "from_account_id": "7cfd626a-34b0-4214-a6e4-08c6bcb172ac",
+    "id": "6ba5de1b-c6ad-423f-8343-40818cf6d8c1"
+  }
+}
 ```
 
 ## POST /backoffice/operators
@@ -404,7 +473,6 @@ Create a backoffice operator.
 **Request**
 
 ```json
-
 ```
 
 **Response**
