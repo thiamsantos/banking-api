@@ -8,7 +8,9 @@ defmodule Web.Backoffice.OperatorController do
   def create(conn, params) do
     with {:ok, create_params} <- CreateParams.parse(params),
          {:ok, operator} <- Backoffice.create_operator(create_params) do
-      render(conn, "show.json", operator: operator)
+      conn
+      |> put_status(:created)
+      |> render("show.json", operator: operator)
     end
   end
 end

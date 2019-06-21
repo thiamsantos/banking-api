@@ -16,7 +16,7 @@ defmodule Web.Backoffice.OperatorControllerTest do
       response =
         conn
         |> post("/backoffice/operators", params)
-        |> json_response(200)
+        |> json_response(201)
 
       assert %{
                "data" => %{

@@ -8,7 +8,9 @@ defmodule Web.TransferController do
   def create(%Plug.Conn{assigns: %{current_account: current_account}} = conn, params) do
     with {:ok, create_params} <- CreateParams.parse(params),
          {:ok, transfer} <- create_transfer(current_account, create_params) do
-      render(conn, "show.json", transfer: transfer)
+      conn
+      |> put_status(:created)
+      |> render("show.json", transfer: transfer)
     end
   end
 

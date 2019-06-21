@@ -28,7 +28,7 @@ defmodule Web.WithdrawalControllerTest do
         conn
         |> authenticate_account(account)
         |> post("/api/withdrawals", params)
-        |> json_response(200)
+        |> json_response(201)
 
       assert %{
                "data" => %{

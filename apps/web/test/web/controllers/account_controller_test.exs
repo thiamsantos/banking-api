@@ -16,7 +16,7 @@ defmodule Web.AccountControllerTest do
       response =
         conn
         |> post("/api/accounts", params)
-        |> json_response(200)
+        |> json_response(201)
 
       assert %{
                "data" => %{

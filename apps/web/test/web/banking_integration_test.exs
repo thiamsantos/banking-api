@@ -11,7 +11,7 @@ defmodule Web.BankingIntegrationTest do
     %{"data" => first_account} =
       build_conn()
       |> post("/api/accounts", first_account_params)
-      |> json_response(200)
+      |> json_response(201)
 
     assert first_account["email"] == first_account_params[:email]
 
@@ -24,7 +24,7 @@ defmodule Web.BankingIntegrationTest do
     %{"data" => second_account} =
       build_conn()
       |> post("/api/accounts", second_account_params)
-      |> json_response(200)
+      |> json_response(201)
 
     assert second_account["email"] == second_account_params[:email]
 
@@ -32,7 +32,7 @@ defmodule Web.BankingIntegrationTest do
     response =
       build_conn()
       |> post("/api/session_tokens", first_account_params)
-      |> json_response(200)
+      |> json_response(201)
 
     assert %{"data" => %{"session_token" => first_account_session_token}} = response
 
@@ -46,7 +46,7 @@ defmodule Web.BankingIntegrationTest do
       build_conn()
       |> put_req_header("authorization", "Bearer #{first_account_session_token}")
       |> post("/api/transfers", params)
-      |> json_response(200)
+      |> json_response(201)
 
     assert %{
              "data" => %{
@@ -64,7 +64,7 @@ defmodule Web.BankingIntegrationTest do
     response =
       build_conn()
       |> post("/api/session_tokens", second_account_params)
-      |> json_response(200)
+      |> json_response(201)
 
     assert %{"data" => %{"session_token" => second_account_session_token}} = response
 
@@ -77,7 +77,7 @@ defmodule Web.BankingIntegrationTest do
       build_conn()
       |> put_req_header("authorization", "Bearer #{second_account_session_token}")
       |> post("/api/withdrawals", params)
-      |> json_response(200)
+      |> json_response(201)
 
     assert %{
              "data" => %{

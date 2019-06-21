@@ -31,7 +31,7 @@ defmodule Web.TransferControllerTest do
         conn
         |> authenticate_account(origin_account)
         |> post("/api/transfers", params)
-        |> json_response(200)
+        |> json_response(201)
 
       assert %{
                "data" => %{

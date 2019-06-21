@@ -11,6 +11,7 @@ defmodule Web.Backoffice.SessionTokenController do
          {:ok, operator} <- Backoffice.validate_credentials(credentials),
          {:ok, session_token, _claims} <- BackofficeGuardian.encode_and_sign(operator) do
       conn
+      |> put_status(:created)
       |> put_view(Web.SessionTokenView)
       |> render("show.json", session_token: session_token)
     end

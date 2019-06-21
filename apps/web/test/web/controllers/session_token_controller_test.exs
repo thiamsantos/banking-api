@@ -18,7 +18,7 @@ defmodule Web.SessionTokenControllerTest do
       response =
         conn
         |> post("/api/session_tokens", params)
-        |> json_response(200)
+        |> json_response(201)
 
       assert %{"data" => %{"session_token" => session_token}} = response
 

@@ -8,7 +8,9 @@ defmodule Web.WithdrawalController do
   def create(%Plug.Conn{assigns: %{current_account: current_account}} = conn, params) do
     with {:ok, create_params} <- CreateParams.parse(params),
          {:ok, withdrawal} <- create_withdrawal(current_account, create_params) do
-      render(conn, "show.json", withdrawal: withdrawal)
+      conn
+      |> put_status(:created)
+      |> render("show.json", withdrawal: withdrawal)
     end
   end
 
