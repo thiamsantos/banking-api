@@ -684,9 +684,9 @@ Code: 406
 }
 ```
 
-## GET /backoffice/transactions-report
+## GET /backoffice/transactions/amount
 
-Get the transactions report.
+Get the total of money transacted and the count of transaction for the given year, month or day.
 
 ### Request headers
 
@@ -694,23 +694,59 @@ Get the transactions report.
 |:----------|:-------|:------------|
 | Content-Type | application/json | As for now the API only accepts json body |
 | Accepts | application/json | As for now the API only responds to json |
+| Authorization | Bearer #{JWT_TOKEN} | Pass the JWT token created for the operator |
 
-### Request parameters
+### Query String
+
+| Key | Description |
+|:----------|:------------|
+| year | The year to be queried |
+| month | The month to be queried |
+| day | The day to be queried |
+
+**Examples**:
+
+* `/backoffice/transactions/amount` - Will return the total from all history.
+* `/backoffice/transactions/amount?year=2019` - Will return the total of the year 2019.
+* `/backoffice/transactions/amount?year=2019&month=1` - Will return the total of january of 2019.
+* `/backoffice/transactions/amount?year=2019&month=1&day=13` - Will return the total of 13 of january of 2019.
+
 
 ### Success response
 
+Code: 200.
+
+| Value | Type | Description |
+|:------|:-----|:------------|
+| count | integer | The count of transactions in that period |
+| total_amount | integer | The total amount of money in cents transacted in that period |
+
 ### Error response
 
-### Example
+**Invalid Date**
 
-**Request**
+Code: 422.
+Body:
 
 ```json
-
+{
+  "errors": {
+    "date": [
+      "Invalid date"
+    ]
+  }
+}
 ```
+
+### Example
 
 **Response**
 
 ```json
-
+{
+  "data": {
+    "count": 14,
+    "total_amount": 1400
+  }
+}
 ```
