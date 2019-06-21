@@ -98,7 +98,7 @@ defmodule Web.TransferControllerTest do
       origin_account = insert(:account, balance: 200)
 
       amount = 100
-      to_account_id = Ecto.UUID.generate()
+      to_account_id = "invalid"
 
       params = %{
         to_account_id: to_account_id,
@@ -111,7 +111,7 @@ defmodule Web.TransferControllerTest do
         |> post("/api/transfers", params)
         |> json_response(422)
 
-      assert response == %{"errors" => %{"to_account_id" => ["does not exist"]}}
+      assert response == %{"errors" => %{"to_account_id" => ["is invalid"]}}
     end
   end
 end

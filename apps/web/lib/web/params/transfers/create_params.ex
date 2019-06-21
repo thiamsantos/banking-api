@@ -3,7 +3,7 @@ defmodule Web.Transfers.CreateParams do
   import Ecto.Changeset
 
   embedded_schema do
-    field :to_account_id, :string
+    field :to_account_id, Ecto.UUID
     field :amount, :integer
   end
 
