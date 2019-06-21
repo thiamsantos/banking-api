@@ -32,5 +32,5 @@ config :web, Web.BackofficeGuardian,
 config :banking, Banking.Withdrawals.Email,
   from: fetch_env!.("BANKING_WITHDRAWAL_FROM_EMAIL")
 
-config :sample, Core.Mailer,
+config :core, Core.Mailer,
   api_key: fetch_env!.("SENDGRID_API_KEY")
