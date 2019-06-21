@@ -9,7 +9,7 @@ Conceptual REST API to handle financial transaction like transfers and withdrawa
 
 Checkout the REST API documentation at [API.md](API.md) .
 
-## Setup (with docker)
+## Setup (full docker)
 
 These instructions will get you a copy of the project up and running on your
 local machine for development and testing purposes in a docker environment.
@@ -21,7 +21,7 @@ local machine for development and testing purposes in a docker environment.
 ### Installing
 
 ```sh
-$ docker-compose up
+$ docker-compose up -f full-docker-compose.yml
 # The API will be available at localhost:4000
 ```
 
@@ -40,7 +40,7 @@ $ make format
 $ make credo
 ```
 
-## Setup (without docker)
+## Setup (docker + mix)
 
 These instructions will get you a copy of the project up and running on your
 local machine for development and testing purposes without docker.
@@ -50,13 +50,15 @@ local machine for development and testing purposes without docker.
 - [asdf](https://github.com/asdf-vm/asdf) v0.5.0 or superior (other versions may work as well).
 - [asdf-elixir](https://github.com/asdf-vm/asdf-elixir)
 - [asdf-erlang](https://github.com/asdf-vm/asdf-erlang)
-- [postgres](https://www.postgresql.org/) 9.6
+- [Docker](https://www.docker.com/) 18 or superior (other versions may work as well)
 
 ### Installing
 
 ```sh
 # Install the versions of elixir and erlang defined at .tool-versions
 $ asdf install
+# Start the database with docker
+$ docker-compose up
 # Copy the default .env file and customize with your local database credentials
 $ cp .env .env.local
 # Copy the default .env for tests and customize with your local database credentials for testing
@@ -79,10 +81,10 @@ $ mix test
 ### Coding style tests
 
 ```sh
-$ mix format
 # Run the formatter
-$ mix credo
+$ mix format
 # Run credo
+$ mix credo
 ```
 
 ## Environment variables
@@ -92,9 +94,18 @@ dotenv files, before running each mix config file.
 
 The following env vars are used:
 
-- `PORT` - The port that the server will start. Ex: `4000`.
-- `DATABASE_URL` - The database's url. Ex: `postgres://username:password@host/db_name`
-- `SECRET_KEY_BASE` - A secret key used by Phoenix as a base to generate secrets for encrypting and signing data. Run `mix phx.gen.secret` to generate a new one.
+* `PORT` - The port that the server will start. Ex: `4000`.
+* `DATABASE_URL` - The database's url. Ex: `postgres://username:password@host/db_name`
+* `POOL_SIZE` - The size of the pool of database connections. Ex: `2`.
+* `SECRET_KEY_BASE` - A secret key used by Phoenix as a base to generate secrets for encrypting and signing data. Run `mix phx.gen.secret` to generate a new one.
+* `HOST` - Application host. Ex: `banking.example.com`.
+* `TIMBER_API_KEY` - [Timber](https://timber.io/) API key.
+* `TIMBER_SOURCE_ID` - [Timber](https://timber.io/) source ID.
+* `BANKING_SESSION_TOKEN_TTL_IN_MINUTES` - Time to live in minutes of the banking-related JWT session tokens. Ex: `15`
+* `BANKING_SESSION_TOKEN_SECRET` - A secret key used by Guardiian to sign the banking-related JWT session tokens. Run `mix guardian.gen.secret` to generate a new one.
+* `BACKOFFICE_SESSION_TOKEN_TTL_IN_MINUTES` - Time to live in minutes of the backoffice-related JWT session tokens. Ex: `15`
+* `BACKOFFICE_SESSION_TOKEN_SECRET` - A secret key used by Guardiian to sign the backoffice-related JWT session tokens. Run `mix guardian.gen.secret` to generate a new one.
+* `SENDGRID_API_KEY` - Sendgrid API key.
 
 ## Deployment (gigalixir)
 
@@ -122,8 +133,8 @@ $ gigalixir config:set TIMBER_API_KEY="YOUR_API_KEY"
 $ gigalixir config:set TIMBER_SOURCE_ID="YOUR_SOURCE_ID"
 $ gigalixir config:set BANKING_SESSION_TOKEN_TTL_IN_MINUTES=15
 $ gigalixir config:set BANKING_SESSION_TOKEN_SECRET=$(mix guardian.gen.secret)
-$ gigalixir config:set BACKOFFICE_SESSION_TOKEN_SECRET=$(mix guardian.gen.secret)
 $ gigalixir config:set BACKOFFICE_SESSION_TOKEN_TTL_IN_MINUTES=15
+$ gigalixir config:set BACKOFFICE_SESSION_TOKEN_SECRET=$(mix guardian.gen.secret)
 $ gigalixir config:set BANKING_WITHDRAWAL_FROM_EMAIL=youremail@example.com
 $ gigalixir config:set SENDGRID_API_KEY="YOUR_API_KEY"
 # Deploy the code
@@ -136,9 +147,9 @@ Since gigalixir deploys are just a normal git push, it should work with any CI/C
 
 Export the following env vars on your CI/CD environment. The correct values can be found in the Gigalixir panel.
 
-- `GIGALIXIR_EMAIL` - Ex: `foo%40gigalixir.com`.
-- `GIGALIXIR_API_KEY` - Ex: `b9fbde22-fb73-4acb-8f74-f0aa6321ebf7`.
-- `GIGALIXIR_APP_NAME` - Ex: `real-hasty-fruitbat`.
+* `GIGALIXIR_EMAIL` - Ex: `foo%40gigalixir.com`.
+* `GIGALIXIR_API_KEY` - Ex: `b9fbde22-fb73-4acb-8f74-f0aa6321ebf7`.
+* `GIGALIXIR_APP_NAME` - Ex: `real-hasty-fruitbat`.
 
 Then run:
 
@@ -154,3 +165,6 @@ A working example can be found at `.travis.yml`.
 * [Phoenix](https://phoenixframework.org/) - Web framework
 * [Ecto](https://github.com/elixir-ecto/ecto) - Database wrapper and data-mapper
 * [Guardian](https://github.com/ueberauth/guardian) - Token based authentication library
+* [Swoosh](https://github.com/swoosh/swoosh) - Library used to compose, deliver and test emails.
+* [Timber](https://timber.io/) - Logging service.
+* [Sendgrid](https://sendgrid.com/) - Email delivery service.
