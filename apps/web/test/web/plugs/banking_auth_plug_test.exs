@@ -3,7 +3,7 @@ defmodule Web.BankingAuthPlugTest do
 
   alias Core.Repo
   alias Guardian.Token.Jwt
-  alias Web.{BankingAuthPlug, BankingGuardian, BackofficeGuardian}
+  alias Web.{BackofficeGuardian, BankingAuthPlug, BankingGuardian}
 
   describe "call/2" do
     test "invalid jwt token", %{conn: conn} do
