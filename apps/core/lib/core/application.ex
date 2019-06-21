@@ -11,7 +11,7 @@ defmodule Core.Application do
         "timber-core-repo-query-handler",
         [:core, :repo, :query],
         &Timber.Ecto.handle_event/4,
-        [log_level: :info]
+        log_level: :info
       )
 
     :ok = Logger.add_translator({Timber.Exceptions.Translator, :translate})
