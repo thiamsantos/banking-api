@@ -21,7 +21,10 @@ local machine for development and testing purposes in a docker environment.
 ### Installing
 
 ```sh
-$ docker-compose up -f full-docker-compose.yml
+# change the DATABASE_URL to point to the container
+$ echo "DATABASE_URL=postgres://postgres:postgres@database/banking" > .env.local
+$ echo "DATABASE_URL=postgres://postgres:postgres@database/banking_test" > .env.local.test
+$ docker-compose -f full-docker-compose.yml up
 # The API will be available at localhost:4000
 ```
 
@@ -59,10 +62,6 @@ local machine for development and testing purposes without docker.
 $ asdf install
 # Start the database with docker
 $ docker-compose up
-# Copy the default .env file and customize with your local database credentials
-$ cp .env .env.local
-# Copy the default .env for tests and customize with your local database credentials for testing
-$ cp .env.test .env.local.test
 # Create the databases
 $ mix ecto.create
 # Run the migrations

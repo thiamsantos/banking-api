@@ -1,5 +1,5 @@
 FROM elixir:1.8.1-alpine
-RUN apk add inotify-tools
+RUN apk add inotify-tools make g++
 
 RUN mix local.hex --force
 RUN mix local.rebar --force

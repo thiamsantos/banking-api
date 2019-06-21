@@ -12,12 +12,12 @@ help: Makefile
 
 ## test - Run tests inside a docker container
 test:
-	docker-compose run -e MIX_ENV=test banking mix test
+	docker-compose -f full-docker-compose.yml run -e MIX_ENV=test banking mix test
 
 ## format - Run the formatter inside a docker container
 format:
-	docker-compose run banking mix format
+	docker-compose -f full-docker-compose.yml run banking mix format
 
 ## credo - Run the linter inside a docker container
 credo:
-	docker-compose run banking mix credo
+	docker-compose -f full-docker-compose.yml run banking mix credo
