@@ -1,3 +1,7 @@
+# API
+
+The API is available at https://banking-api.gigalixirapp.com/.
+
 ## POST /api/accounts
 
 Create an account. Every account starts with a balance of R$ 1000,00.
@@ -105,7 +109,7 @@ Code: 406
 
 ```json
 {
-  "email": "test@gmail.com",
+  "email": "example@gmail.com",
   "password": "secure_password"
 }
 ```
@@ -122,7 +126,7 @@ Code: 406
 }
 ```
 
-## POST /api/session-tokens
+## POST /api/session_tokens
 
 Create a session token for banking requests.
 
@@ -464,26 +468,117 @@ Create a backoffice operator.
 
 ### Request parameters
 
+| Parameter | Type   | Description |
+|:----------|:-------|:------------|
+| email     | string | Valid email address, with a max of 255 characters |
+| password  | string | A password with minimum of 12 characters and a max of 255 characters |
+
 ### Success response
 
+Code: 201 (created).
+
+| Value | Type | Description |
+|:------|:-----|:------------|
+| email   | string | The email of created operator |
+| id      | string | Unique identifier of the operator |
+
 ### Error response
+
+**Required params**
+
+Code: 422
+
+```json
+{
+  "errors": {
+    "email": [
+      "can't be blank"
+    ],
+    "password": [
+      "can't be blank"
+    ]
+  }
+}
+```
+
+**Invalid email**
+
+Code: 422
+
+```json
+{
+  "errors": {
+    "email": [
+      "has invalid format"
+    ]
+  }
+}
+```
+
+**Password too short**
+
+Code: 422
+
+```json
+{
+  "errors": {
+    "password": [
+      "should be at least 12 character(s)"
+    ]
+  }
+}
+```
+
+**Email already taken**
+
+Code: 422
+
+```json
+{
+  "errors": {
+    "email": [
+      "has already been taken"
+    ]
+  }
+}
+```
+
+**Not acceptable**
+
+Code: 406
+
+```json
+{
+  "errors": {
+    "detail": "Not Acceptable"
+  }
+}
+```
 
 ### Example
 
 **Request**
 
 ```json
+{
+  "email": "example@gmail.com",
+  "password": "secure_password"
+}
 ```
 
 **Response**
 
 ```json
-
+{
+  "data": {
+    "email": "example@gmail.com",
+    "id": "1acdf3b5-d718-4a56-bb99-6ec25cd53e33"
+  }
+}
 ```
+## POST /backoffice/session_tokens
 
-## POST /backoffice/session-tokens
-
-Create a session token.
+Create a session token for backoffice.
 
 ### Request headers
 
@@ -494,22 +589,99 @@ Create a session token.
 
 ### Request parameters
 
+| Parameter | Type   | Description |
+|:----------|:-------|:------------|
+| email     | string | The operator's email |
+| password  | string | The operator's password |
+
 ### Success response
 
+Code: 201 (created).
+
+| Value | Type | Description |
+|:------|:-----|:------------|
+| session_token | string | A JWT token with ttl of 15 minutes |
+
 ### Error response
+
+**Required params**
+
+```json
+{
+  "errors": {
+    "email": [
+      "can't be blank"
+    ],
+    "password": [
+      "can't be blank"
+    ]
+  }
+}
+```
+
+**Email not found**
+
+Code: 422.
+
+Body:
+
+```json
+{
+  "errors": {
+    "email": [
+      "Invalid email or password"
+    ]
+  }
+}
+```
+
+**Invalid password**
+
+Code: 422.
+
+Body:
+
+```json
+{
+  "errors": {
+    "email": [
+      "Invalid email or password"
+    ]
+  }
+}
+```
+
+**Not acceptable**
+
+Code: 406
+
+```json
+{
+  "errors": {
+    "detail": "Not Acceptable"
+  }
+}
+```
 
 ### Example
 
 **Request**
 
 ```json
-
+{
+  "email": "valid@mail.com",
+  "password": "secure_password"
+}
 ```
 
 **Response**
 
 ```json
-
+{
+  "data": {
+    "session_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiYWNrb2ZmaWNlIiwiZXhwIjoxNTYxMTU2MzMwLCJpYXQiOjE1NjExNTU0MzAsImlzcyI6ImJhY2tvZmZpY2UiLCJqdGkiOiJiZjhiMmRiZi1lZWYwLTRhNTMtYTA1My0zYTY0N2JkZWY0ZGYiLCJuYmYiOjE1NjExNTU0MjksInN1YiI6IjYzZWI2MzhkLWVmMjUtNDk2Mi1hYzQ4LTFlZTliZGQzMjQ0YiIsInR5cCI6ImFjY2VzcyJ9.MUIhLI2LMuzGTl21RX0dibct1v2T6x0lVrbnwqukzk4UhK5ByrPoMEYwbFMCboW6l53yF9r5pfIiyLDWmyastA"
+  }
+}
 ```
 
 ## GET /backoffice/transactions-report
