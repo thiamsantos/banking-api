@@ -39,7 +39,7 @@ script:
   - mix format --check-formatted
   - mix credo --strict
   - mix test
-  - mix coveralls.travis
+  - mix coveralls.travis --umbrella
 
 services:
   - postgresql
