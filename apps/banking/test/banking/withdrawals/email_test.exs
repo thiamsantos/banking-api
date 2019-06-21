@@ -17,7 +17,9 @@ defmodule Banking.Withdrawals.EmailTest do
 
       assert email.from == {"", origin_email}
       assert email.to == [{"", account.email}]
-      assert email.text_body == "Successfully withdrawal with value of R$ 10,00"
+      assert email.reply_to == {"", origin_email}
+      assert email.subject == "Withdrawal created"
+      assert email.text_body == "Successfully created withdrawal with value of R$ 10,00"
     end
   end
 end
