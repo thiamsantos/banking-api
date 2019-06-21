@@ -3,6 +3,8 @@ defmodule Web.FallbackController do
 
   alias Web.ErrorHelpers
 
+  require Logger
+
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     errors = Ecto.Changeset.traverse_errors(changeset, &ErrorHelpers.translate_error/1)
 
@@ -34,6 +36,8 @@ defmodule Web.FallbackController do
   end
 
   def call(conn, {:error, reason}) do
+    Logger.error("[#{inspect(__MODULE__)}] Unexpected error: #{inspect(reason)}")
+
     conn
     |> put_status(:internal_server_error)
     |> put_view(Web.ErrorView)
