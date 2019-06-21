@@ -13,6 +13,10 @@ defmodule Core.Factory do
     }
   end
 
+  def with_password(%r{} = resource, password) when r in [Account, Operator] do
+    %{resource | password: password, encrypted_password: SecurePassword.digest(password)}
+  end
+
   def operator_factory do
     %Operator{
       email: Faker.Internet.email(),
@@ -29,7 +33,12 @@ defmodule Core.Factory do
     }
   end
 
-  def with_password(%r{} = resource, password) when r in [Account, Operator] do
-    %{resource | password: password, encrypted_password: SecurePassword.digest(password)}
+  def transfer_factory do
+    %Transaction{
+      from_account: build(:account),
+      to_account: build(:account),
+      amount: 100,
+      type: :transfer
+    }
   end
 end

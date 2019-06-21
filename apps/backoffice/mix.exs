@@ -30,7 +30,8 @@ defmodule Backoffice.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:core, in_umbrella: true}
+      {:core, in_umbrella: true},
+      {:timex, "~> 3.5"}
     ]
   end
 end

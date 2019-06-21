@@ -35,5 +35,11 @@ defmodule Web.Router do
 
     post "/operators", OperatorController, :create
     post "/session_tokens", SessionTokenController, :create
+
+    scope "/transactions" do
+      pipe_through :protected_backoffice
+
+      get "/amount", TransactionController, :total_amount
+    end
   end
 end

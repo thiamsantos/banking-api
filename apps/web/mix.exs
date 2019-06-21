@@ -53,7 +53,7 @@ defmodule Web.MixProject do
       {:faker, "~> 0.12.0", only: :test},
       {:ecto, "~> 3.1"},
       {:guardian, "~> 1.2"},
-      {:timex, "~> 3.5", only: :test},
+      {:timex, "~> 3.5"},
       {:swoosh, "~> 0.23.2"}
     ]
   end

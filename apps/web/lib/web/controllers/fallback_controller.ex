@@ -19,6 +19,13 @@ defmodule Web.FallbackController do
     |> render("show.json", errors: %{email: ["Invalid email or password"]})
   end
 
+  def call(conn, {:error, :invalid_date}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(Web.ErrorView)
+    |> render("show.json", errors: %{date: ["Invalid date"]})
+  end
+
   def call(conn, {:error, :insufficient_balance}) do
     conn
     |> put_status(:unprocessable_entity)
