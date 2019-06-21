@@ -8,10 +8,10 @@ defmodule Core.Application do
   def start(_type, _args) do
     :ok =
       :telemetry.attach(
-        "timber-ecto-query-handler",
+        "timber-core-repo-query-handler",
         [:core, :repo, :query],
         &Timber.Ecto.handle_event/4,
-        []
+        [log_level: :info]
       )
 
     :ok = Logger.add_translator({Timber.Exceptions.Translator, :translate})
